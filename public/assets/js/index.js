@@ -118,12 +118,25 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  let jsonNotes = await notes.json();
-  if (window.location.pathname === '/notes') {
-    noteList.forEach((el) => (el.innerHTML = ''));
+  noteList.empty();
+
+  var noteListItems = [];
+
+  for (var i = 0; i < notes.length; i++) {
+    var note = notes[i];
+
+    var li = $("<li class='list-group-item'>")(note);
+    var span = $("<span>").text(note.title);
+    var delBtn = $(
+      "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
+    );
+
+    li.append(span, delBtn);
+    noteListItems.push(li);
   }
 
-  let noteListItems = [];
+  noteList.append(noteListItems);
+};
 
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
@@ -167,8 +180,7 @@ const renderNoteList = async (notes) => {
 
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
-  }
-};
+  };
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
