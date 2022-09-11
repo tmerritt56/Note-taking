@@ -2,12 +2,11 @@ const express = require('express');
 const htmlRoute = require('./routes/htmlroutes');
 const apiRoute = require('./routes/apiroutes');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 // middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use("/assets", express.static('./public/assets'));
-
+app.use(express.static('public'));
 app.use('/', htmlRoute);
 app.use('/', apiRoute);
 

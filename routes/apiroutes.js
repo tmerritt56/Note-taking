@@ -29,7 +29,7 @@ router.delete("/api/notes/:id", (req,res) => {
     let newId = 0;
     console.log(`Deleting note with id ${noteId}`);
     data = data.filter(currentNote => {
-        return currentNote.id !=noteId;
+        return currentNote.id != noteId;
     });
     for (currentNote of data) {
         currentNote.id = newId.toString();
